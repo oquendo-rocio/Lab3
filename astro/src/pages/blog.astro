@@ -1,0 +1,26 @@
+---
+import { FetchArticles } from "src/utils/FetchArticles";
+import {extractImageUrl} from "src/utils/FetchArticles";
+
+const articles = await FetchArticles();
+---
+
+<html>
+  <head>
+    <title>Blog</title>
+  </head>
+  <body>
+    <h1>Blog</h1>
+    <ul>
+      {articles.map((article) => (
+        <li>
+          <h2>{article.attributes.title}</h2>
+          <p set:html={article.attributes.content} />
+          {article.attributes.content && (
+            <img src={extractImageUrl(article.attributes.content)} alt={article.attributes.title} />
+          )}
+        </li>
+      ))}
+    </ul>
+  </body>
+</html>
